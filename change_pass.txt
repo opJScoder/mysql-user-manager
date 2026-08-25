@@ -1,0 +1,22 @@
+To change your MySQL root password, you must use an account with administrative privileges.
+
+Here are the standard steps using the MySQL command line interface.
+
+Run these commands in your terminal or command prompt:
+
+   1. Log in to MySQL:
+   
+   	mysql -u root -p
+   
+   2. Enter your current password when prompted.
+   3. Run the update command (replace NewPassword123! with your new secure password):
+   
+   	ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewPassword123!';
+   
+   4. Apply the changes:
+   
+   	FLUSH PRIVILEGES;
+   
+   5. Exit the interface:
+   
+   	EXIT;
