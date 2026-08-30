@@ -10,10 +10,14 @@ Copy and paste this exact command, then hit Enter:
 New-NetFirewallRule -DisplayName "MySQL Remote Access" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3306
 ```
 
-To check everytime:
+To check the state:
 
 ```powerShell
 Get-NetTCPConnection -LocalPort 3306 -State Listen
 ```
 
-Use code with caution.
+To get the IPv4 Address of your pc:
+
+```powerShell
+(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.IPAddress -notlike "169.*" -and $_.IPAddress -ne "127.0.0.1"}).IPAddress
+```
