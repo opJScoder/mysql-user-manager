@@ -2,8 +2,6 @@
 -- EXPERIMENT 2: ADVANCED SELECT, BETWEEN, IN, AND LIKE PREDICATES
 -- =============================================================================
 
--- 0. Use Table
-use `250180107044`;
 
 -- 1. Table Creation (DDL)
 CREATE TABLE Job (

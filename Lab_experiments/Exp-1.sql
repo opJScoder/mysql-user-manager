@@ -2,9 +2,6 @@
 -- EXPERIMENT 1: BASIC DDL, DML, AND COMPARISON QUERIES
 -- =============================================================================
 
--- 0. Use Table
-use `250180107044`;
-
 -- 1. Table Creation (DDL)
 CREATE TABLE DEPOSIT (
     ACTNO VARCHAR(5), 

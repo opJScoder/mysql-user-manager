@@ -2,9 +2,6 @@
 -- EXPERIMENT 3: DATA MANIPULATION, AGGREGATION, AND TABLE MANIPULATION
 -- =============================================================================
 
--- 0. Use Table
-use `250180107044`;
-
 -- 1. List total deposit from deposit.
 SELECT SUM(AMOUNT) AS Total_Deposit 
 FROM DEPOSIT;
@@ -83,6 +80,9 @@ INSERT INTO sup2
 SELECT * FROM Employee 
 WHERE emp_name LIKE '_n___';
 
+-- MySQL Workbench Safe Updates override (needed for non-PK updates/deletes):
+SET SQL_SAFE_UPDATES = 0;
+
 -- 10. Delete all the rows from sup1.
 DELETE FROM sup1;
 
@@ -108,3 +108,6 @@ WHERE emp_name LIKE '_m%';
 UPDATE Employee 
 SET emp_name = 'ADAM' 
 WHERE emp_no = 103;
+
+-- Re-enable Safe Updates:
+SET SQL_SAFE_UPDATES = 1;
