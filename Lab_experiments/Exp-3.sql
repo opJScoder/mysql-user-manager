@@ -4,28 +4,28 @@
 
 -- 1. List total deposit from deposit.
 SELECT SUM(AMOUNT) AS Total_Deposit 
-FROM DEPOSIT;
+FROM deposit;
 
 -- 2. List total loan from karolbagh branch
 -- Using UPPER() to handle any potential lower/mixed case input values safely.
 SELECT SUM(AMOUNT) AS Total_Loan_Karolbagh 
-FROM BORROW 
+FROM borrow 
 WHERE UPPER(BNAME) = 'KAROLBAGH';
 
 -- 3. Give maximum loan from branch vice.
--- "Branch vice" translates to branch-wise grouping (GROUP BY BNAME).
+-- "branch vice" translates to branch-wise grouping (GROUP BY BNAME).
 SELECT BNAME, MAX(AMOUNT) AS Max_Loan_BranchWise 
-FROM BORROW 
+FROM borrow 
 GROUP BY BNAME;
 
 -- 4. Count total number of customers
 SELECT COUNT(*) AS Total_Customers_Exp1 
-FROM CUSTOMERS;
+FROM customers;
 
 -- 5. Count total number of customer’s cities.
 -- DISTINCT prevents duplicate cities from artificially raising the count.
 SELECT COUNT(DISTINCT CITY) AS Total_Unique_Cities_Exp1 
-FROM CUSTOMERS;
+FROM customers;
 
 
 -- -----------------------------------------------------------------------------
@@ -54,30 +54,30 @@ GROUP BY bname;
 
 
 -- -----------------------------------------------------------------------------
--- PART C: DATA RETRIEVAL & TABLE STRUCTURAL MANIPULATIONS (USING Employee TABLE)
+-- PART C: DATA RETRIEVAL & TABLE STRUCTURAL MANIPULATIONS (USING employee TABLE)
 -- -----------------------------------------------------------------------------
 
 -- 6. Create table supplier from employee with all the columns.
 CREATE TABLE supplier AS 
-SELECT * FROM Employee;
+SELECT * FROM employee;
 
 -- 7. Create table sup1 from employee with first two columns.
 -- Dynamically targets emp_no and emp_name structural profiles.
 CREATE TABLE sup1 AS 
 SELECT emp_no, emp_name 
-FROM Employee;
+FROM employee;
 
 -- 8. Create table sup2 from employee with no data
 -- The 'WHERE 1 = 0' statement forces an empty structural clone.
 CREATE TABLE sup2 AS 
-SELECT * FROM Employee 
+SELECT * FROM employee 
 WHERE 1 = 0;
 
 -- 9. Insert the data into sup2 from employee whose second character should be ‘n’ 
 -- and string should be 5 characters long in employee name field.
 -- MySQL pattern match logic: '_n___' strictly maps a length of exactly 5.
 INSERT INTO sup2 
-SELECT * FROM Employee 
+SELECT * FROM employee 
 WHERE emp_name LIKE '_n___';
 
 -- MySQL Workbench Safe Updates override (needed for non-PK updates/deletes):
@@ -87,7 +87,7 @@ SET SQL_SAFE_UPDATES = 0;
 DELETE FROM sup1;
 
 -- 11. Delete the detail of supplier whose sup_no is 103.
--- Maps to the base 'emp_no' row definition cloned from Employee.
+-- Maps to the base 'emp_no' row definition cloned from employee.
 DELETE FROM supplier 
 WHERE emp_no = 103;
 
@@ -100,12 +100,12 @@ DROP TABLE IF EXISTS sup1;
 
 -- 14. Update the value dept_no to 10 where second character of emp. name is ‘m’.
 -- Uses trailing wildcard '%' to match strings of any length starting with anything, then 'm'.
-UPDATE Employee 
+UPDATE employee 
 SET dept_no = 10 
 WHERE emp_name LIKE '_m%';
 
 -- 15. Update the value of employee name whose employee number is 103.
-UPDATE Employee 
+UPDATE employee 
 SET emp_name = 'ADAM' 
 WHERE emp_no = 103;
 

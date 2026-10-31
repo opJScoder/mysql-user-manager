@@ -183,12 +183,12 @@ WHERE br.CITY = 'DELHI';
 -- -----------------------------------------------------------------------------
 -- 7. Display the employee last name and employee number along with 
 --    their manager’s last name and manager number. 
---    Label the columns Employee, Emp#, Manager, and Mgr#, respectively.
+--    Label the columns employee, emp#, Manager, and Mgr#, respectively.
 -- -----------------------------------------------------------------------------
 -- Standard GTU textbook query (Self-Join on emp):
 -- SELECT 
---     e.ename AS Employee, 
---     e.empno AS `Emp#`, 
+--     e.ename AS employee, 
+--     e.empno AS `emp#`, 
 --     m.ename AS Manager, 
 --     m.empno AS `Mgr#`
 -- FROM emp e
@@ -197,8 +197,8 @@ WHERE br.CITY = 'DELHI';
 -- Self-join demonstration using your employee table:
 -- Pairs employees within the same department:
 SELECT 
-    e1.emp_name AS Employee,
-    e1.emp_no AS `Emp#`,
+    e1.emp_name AS employee,
+    e1.emp_no AS `emp#`,
     e2.emp_name AS Colleague,
     e2.emp_no AS `Colleague#`
 FROM employee e1
@@ -273,7 +273,7 @@ FROM employee
 WHERE dept_no = (SELECT dept_no FROM employee WHERE emp_name = 'Anita')
   AND emp_name <> 'Anita';
 
--- Standard GTU / Oracle EMP schema:
+-- Standard GTU / Oracle emp schema:
 -- SELECT ename, hiredate 
 -- FROM emp 
 -- WHERE deptno = (SELECT deptno FROM emp WHERE ename = 'SCOTT') 
@@ -299,7 +299,7 @@ WHERE b.CITY IN (
 -- 3. Give deposit details and loan details of customer in same city 
 --    where pramod is living.
 -- -----------------------------------------------------------------------------
--- Deposit details:
+-- deposit details:
 SELECT * 
 FROM deposit
 WHERE CNAME IN (
@@ -349,7 +349,7 @@ FROM employee
 WHERE dept_no = (SELECT dept_no FROM employee WHERE emp_name = 'Smith')
   AND emp_name <> 'Smith';
 
--- Standard GTU / Oracle EMP schema:
+-- Standard GTU / Oracle emp schema:
 -- SELECT ename, sal 
 -- FROM emp 
 -- WHERE mgr = (SELECT empno FROM emp WHERE ename = 'FORD');
@@ -365,7 +365,7 @@ FROM employee e
 LEFT JOIN job j ON j.job_id = 'FI_ACC'
 WHERE e.dept_no = 10;
 
--- Standard GTU / Oracle EMP/DEPT schema:
+-- Standard GTU / Oracle emp/dept schema:
 -- SELECT deptno, ename, job 
 -- FROM emp 
 -- WHERE deptno = (SELECT deptno FROM dept WHERE dname = 'ACCOUNTING');
@@ -443,7 +443,7 @@ SET AMOUNT = AMOUNT * 1.10;
 
 -- -----------------------------------------------------------------------------
 -- 2. Give 10% interest to all depositors having branch vice.
--- Explanation: "Branch vice" refers to grouping by or filtering per branch. 
+-- Explanation: "branch vice" refers to grouping by or filtering per branch. 
 -- In SQL, an update on every depositor across all branches evaluates branch-wise.
 -- -----------------------------------------------------------------------------
 UPDATE deposit 
@@ -468,7 +468,7 @@ WHERE UPPER(c.CITY) = 'NAGPUR'
 -- 4. Write a query which changes the department number of all employees with 
 --    empno 7788’s job to employee 7844’current department number.
 -- -----------------------------------------------------------------------------
--- Standard GTU / Oracle EMP schema syntax:
+-- Standard GTU / Oracle emp schema syntax:
 -- UPDATE emp 
 -- SET deptno = (SELECT deptno FROM (SELECT deptno FROM emp WHERE empno = 7844) AS t1)
 -- WHERE job = (SELECT job FROM (SELECT job FROM emp WHERE empno = 7788) AS t2);
