@@ -440,6 +440,10 @@ SET SQL_SAFE_UPDATES = 0;
 UPDATE deposit 
 SET AMOUNT = AMOUNT * 1.10;
 
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+ORDER BY ACTNO;
+
 
 -- -----------------------------------------------------------------------------
 -- 2. Give 10% interest to all depositors having branch vice.
@@ -449,6 +453,10 @@ SET AMOUNT = AMOUNT * 1.10;
 UPDATE deposit 
 SET AMOUNT = AMOUNT * 1.10
 WHERE BNAME IS NOT NULL;
+
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+ORDER BY ACTNO;
 
 
 -- -----------------------------------------------------------------------------
@@ -462,6 +470,15 @@ JOIN branch b ON d.BNAME = b.BNAME
 SET d.AMOUNT = d.AMOUNT * 1.10
 WHERE UPPER(c.CITY) = 'NAGPUR' 
   AND UPPER(b.CITY) = 'BOMBAY';
+
+SELECT d.ACTNO, d.CNAME, d.BNAME, d.AMOUNT, d.ADATE,
+       c.CITY AS CUSTOMER_CITY, b.CITY AS BRANCH_CITY
+FROM deposit d
+JOIN customers c ON d.CNAME = c.CNAME
+JOIN branch b ON d.BNAME = b.BNAME
+WHERE UPPER(c.CITY) = 'NAGPUR'
+  AND UPPER(b.CITY) = 'BOMBAY'
+ORDER BY d.ACTNO;
 
 
 -- -----------------------------------------------------------------------------
@@ -477,6 +494,10 @@ WHERE UPPER(c.CITY) = 'NAGPUR'
 UPDATE employee 
 SET dept_no = (SELECT dept_no FROM (SELECT dept_no FROM employee WHERE emp_no = 102) AS t1)
 WHERE dept_no = (SELECT dept_no FROM (SELECT dept_no FROM employee WHERE emp_no = 101) AS t2);
+
+SELECT emp_no, emp_name, dept_no, emp_sal, emp_comm
+FROM employee
+ORDER BY emp_no;
 
 
 -- -----------------------------------------------------------------------------
@@ -496,6 +517,11 @@ SET AMOUNT = AMOUNT + 10
 WHERE CNAME = 'SUNIL' 
   AND BNAME = (SELECT BNAME FROM (SELECT BNAME FROM deposit WHERE CNAME = 'ANIL') AS t);
 
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+WHERE UPPER(CNAME) IN ('ANIL', 'SUNIL')
+ORDER BY ACTNO;
+
 
 -- -----------------------------------------------------------------------------
 -- 6. Give 100 Rs more to all depositors if they are maximum depositors 
@@ -510,6 +536,10 @@ JOIN (
     GROUP BY BNAME
 ) max_table ON d.BNAME = max_table.BNAME AND d.AMOUNT = max_table.max_amt
 SET d.AMOUNT = d.AMOUNT + 100;
+
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+ORDER BY ACTNO;
 
 
 -- -----------------------------------------------------------------------------
@@ -527,6 +557,10 @@ WHERE BNAME IN (
     ) AS temp
 );
 
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+ORDER BY ACTNO;
+
 
 -- -----------------------------------------------------------------------------
 -- 8. Delete deposit of vijay.
@@ -534,6 +568,10 @@ WHERE BNAME IN (
 -- -----------------------------------------------------------------------------
 DELETE FROM deposit 
 WHERE UPPER(CNAME) = 'VIJAY';
+
+SELECT ACTNO, CNAME, BNAME, AMOUNT, ADATE
+FROM deposit
+ORDER BY ACTNO;
 
 
 -- -----------------------------------------------------------------------------
@@ -550,6 +588,10 @@ WHERE BNAME IN (
         HAVING AVG(AMOUNT) < 1000
     ) AS temp
 );
+
+SELECT LOANNO, CNAME, BNAME, AMOUNT
+FROM borrow
+ORDER BY LOANNO;
 
 -- Re-enable Safe Updates:
 SET SQL_SAFE_UPDATES = 1;
